@@ -131,10 +131,13 @@ class Decision_Tree(object):
                     node.child.append(self.generate_tree(X[X[:, attr] == val, :],
                                                      y[X[:, attr] == val], A_next, index[X[:, attr] == val]))
             return node
+            
+    # Print all the nodes of decision tree.
     def dfs(self, root):
         print(root.attr, root.isLeaf, root.label)
         for child in root.child:
             self.dfs(child)
+    # Input a piece of data and return a predicted label for it.
     def predict(self, x):
         cur = self.root
         while not cur.isLeaf:
@@ -161,9 +164,9 @@ y = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 import numpy as np
 X = np.array(X)
 y = np.array(y)
+# Create a new decision tree object.
 dtree = Decision_Tree(X, y)
+# Build a new tree decision tree.
 dtree.build_tree()
-index = [6, 8, 12, 13, 16]
-X = X[index, :]
-y = y[index]
-print(dtree.biggest_info_gain(X, y, [0,1,2,4,5]))
+# Check out whether your decision tree are built correctly or not.
+dtree.dfs(dtree.root)
